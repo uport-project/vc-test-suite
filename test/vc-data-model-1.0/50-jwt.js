@@ -78,7 +78,7 @@ describe('JWT (optional)', () => {
         let publicKey;
         if (alg === 'ES256K') {
           expect(alg).to.equal('ES256K');
-          publicKey = generatorOptions.jwt.ecPublicKey;
+          publicKey = generatorOptions.jwt.ecdsaSecp256k1.publicKey;
         } else {
           expect(alg).to.equal('RS256');
           publicKey = generatorOptions.jwt.rsaPublicKey;
