@@ -33,7 +33,7 @@ describe.only('JWT (optional)', () => {
         const jwtResult = new jwt.JwsToken(jwtBase64);
         expect(jwtResult.isContentWellFormedToken()).to.be.true;
 
-        const typ = jwtResult.getHeader('typ');
+        const { typ } = jwtResult.getHeader();
         if (typ) {
           expect(typ).to.be.a('string');
           expect(typ).to.equal('JWT');
@@ -45,12 +45,11 @@ describe.only('JWT (optional)', () => {
         const jwtResult = new jwt.JwsToken(jwtBase64);
         expect(jwtResult.isContentWellFormedToken()).to.be.true;
 
-        const alg = jwtResult.getHeader('alg')
+        const { alg } = jwtResult.getHeader()
         expect(alg).to.be.a('string')
 
         let publicKey;
-        if (jwtResult.getHeader('alg') === 'ES256K') {
-          expect(alg).to.equal('ES256K');
+        if (alg === 'ES256K') {
           publicKey = generatorOptions.jwt.ecPublicKey;
         } else {
           expect(alg).to.equal('RS256');
@@ -142,7 +141,7 @@ describe.only('JWT (optional)', () => {
        const jwtResult = new jwt.JwsToken(jwtBase64);
        expect(jwtResult.isContentWellFormedToken()).to.be.true;
 
-       const payload = jwtResult.getPayload();
+       const payload = JSON.parse(jwtResult.getPayload());
        expect(payload.aud !== null).to.be.true;
        expect(payload.aud).to.equal(generatorOptions.jwt.aud);
      });
@@ -152,10 +151,10 @@ describe.only('JWT (optional)', () => {
        const jwtResult = new jwt.JwsToken(jwtBase64);
        expect(jwtResult.isContentWellFormedToken()).to.be.true;
 
-       const payload = jwtResult.getPayload();
-       expect(payload.credentialSubject !== null).to.be.true;
-       expect(payload.credentialSubject.alumniOf !== null).to.be.true;
-       expect(payload.credentialSubject.alumniOf).to.equal('alumniOf');
+       const payload = JSON.parse(jwtResult.getPayload());
+       expect(payload.vc.credentialSubject !== null).to.be.true;
+       expect(payload.vc.credentialSubject.alumniOf !== null).to.be.true;
+       expect(payload.vc.credentialSubject.alumniOf).to.equal('Example University');
      });
     });
   });
