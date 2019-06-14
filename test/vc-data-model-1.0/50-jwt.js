@@ -47,7 +47,7 @@ describe('JWT (optional)', () => {
       const jwtResult = new jwt.JwsToken(jwtBase64);
       expect(jwtResult.isContentWellFormedToken()).to.be.true;
       const payload = jwtResult.getPayload();
-      expect(payload.vc !== null).to.be.true();
+      expect(payload.vc !== null).to.be.true;
     });
 
     describe('To encode a verifiable credential as a JWT, specific properties introduced by this' +
@@ -60,7 +60,7 @@ describe('JWT (optional)', () => {
         const jwtResult = new jwt.JwsToken(jwtBase64);
         expect(jwtResult.isContentWellFormedToken()).to.be.true;
 
-        const typ = jwtResult.getHeader('typ');
+        const { typ } = jwtResult.getHeader();
         if (typ) {
           expect(typ).to.be.a('string');
           expect(typ).to.equal('JWT');
@@ -72,11 +72,11 @@ describe('JWT (optional)', () => {
         const jwtResult = new jwt.JwsToken(jwtBase64);
         expect(jwtResult.isContentWellFormedToken()).to.be.true;
 
-        const alg = jwtResult.getHeader('alg')
+        const { alg } = jwtResult.getHeader()
         expect(alg).to.be.a('string')
 
         let publicKey;
-        if (jwtResult.getHeader('alg') === 'ES256K') {
+        if (alg === 'ES256K') {
           expect(alg).to.equal('ES256K');
           publicKey = generatorOptions.jwt.ecPublicKey;
         } else {
@@ -94,7 +94,7 @@ describe('JWT (optional)', () => {
         expect(jwtResult.isContentWellFormedToken()).to.be.true;
         if (jwtResult.signature === null) {
           const payload = jwtResult.getPayload();
-          expect(payload.proof !== null).to.be.true();
+          expect(payload.proof !== null).to.be.true;
         }
       });
 
@@ -116,7 +116,7 @@ describe('JWT (optional)', () => {
        expect(jwtResult.isContentWellFormedToken()).to.be.true;
 
        const payload = jwtResult.getPayload();
-       expect(payload.exp !== null).to.be.true();
+       expect(payload.exp !== null).to.be.true;
        // FIXME: TODO: check if exp matches expirationDate
      });
 
@@ -127,7 +127,7 @@ describe('JWT (optional)', () => {
        expect(jwtResult.isContentWellFormedToken()).to.be.true;
 
        const payload = jwtResult.getPayload();
-       expect(payload.iss !== null).to.be.true();
+       expect(payload.iss !== null).to.be.true;
        // FIXME: TODO: check if iss matches issuer
      });
 
@@ -138,7 +138,7 @@ describe('JWT (optional)', () => {
        expect(jwtResult.isContentWellFormedToken()).to.be.true;
 
        const payload = jwtResult.getPayload();
-       expect(payload.iat !== null).to.be.true();
+       expect(payload.iat !== null).to.be.true;
        // FIXME: TODO: check if iat matches issuanceDate
      });
 
@@ -149,7 +149,7 @@ describe('JWT (optional)', () => {
        expect(jwtResult.isContentWellFormedToken()).to.be.true;
 
        const payload = jwtResult.getPayload();
-       expect(payload.jti !== null).to.be.true();
+       expect(payload.jti !== null).to.be.true;
        // FIXME: TODO: check if jti matches id
      });
 
@@ -160,7 +160,7 @@ describe('JWT (optional)', () => {
        expect(jwtResult.isContentWellFormedToken()).to.be.true;
 
        const payload = jwtResult.getPayload();
-       expect(payload.sub !== null).to.be.true();
+       expect(payload.sub !== null).to.be.true;
        // FIXME: TODO: check if sub matches id
      });
 
@@ -169,8 +169,8 @@ describe('JWT (optional)', () => {
        const jwtResult = new jwt.JwsToken(jwtBase64);
        expect(jwtResult.isContentWellFormedToken()).to.be.true;
 
-       const payload = jwtResult.getPayload();
-       expect(payload.aud !== null).to.be.true();
+       const payload = JSON.parse(jwtResult.getPayload());
+       expect(payload.aud !== null).to.be.true;
        expect(payload.aud).to.equal(generatorOptions.jwt.aud);
      });
 
@@ -179,9 +179,9 @@ describe('JWT (optional)', () => {
        const jwtResult = new jwt.JwsToken(jwtBase64);
        expect(jwtResult.isContentWellFormedToken()).to.be.true;
 
-       const payload = jwtResult.getPayload();
-       expect(payload.credentialSubject !== null).to.be.true();
-       expect(payload.credentialSubject.alumniOf !== null).to.be.true();
+       const payload = JSON.parse(jwtResult.getPayload());
+       expect(payload.credentialSubject !== null).to.be.true;
+       expect(payload.credentialSubject.alumniOf !== null).to.be.true;
        expect(payload.credentialSubject.alumniOf).to.equal('alumniOf');
      });
     });
@@ -194,7 +194,7 @@ describe('JWT (optional)', () => {
       const jwtResult = new jwt.JwsToken(jwtBase64);
       expect(jwtResult.isContentWellFormedToken()).to.be.true;
       const payload = jwtResult.getPayload();
-      expect(payload.vp !== null).to.be.true();
+      expect(payload.vp !== null).to.be.true;
     });
   });
 
