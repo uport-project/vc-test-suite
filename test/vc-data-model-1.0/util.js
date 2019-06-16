@@ -18,8 +18,9 @@ async function generate(file, options) {
 
 async function generateJwt(file, options) {
   options = options || {};
+
   const {stdout, stderr} = await exec(options.generator + ' ' +
-    options.jwt + ' ' + path.join(__dirname, 'input', file));
+    options.generatorOptions + ' ' + path.join(__dirname, 'input', file));
 
   if(stderr) {
     throw new Error(stderr);
