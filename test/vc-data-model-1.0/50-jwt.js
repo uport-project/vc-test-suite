@@ -42,7 +42,7 @@ async function prepareGeneratorOptions() {
 
 }
 
-describe.only('JWT (optional)', () => {
+describe('JWT (optional)', () => {
   prepareGeneratorOptions();
 
   describe('A verifiable credential ...', () => {
