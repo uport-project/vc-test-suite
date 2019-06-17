@@ -38,16 +38,15 @@ async function setGeneratorKeys() {
     ecPrivateKey = new jwt.EcPrivateKey(privateKey);
   }
 
-//  if (options.jwt.rs256PrivateKeyJwk !== undefined) {
-//    var privateKey = {
-//        id: options.jwt.rs256PrivateKeyJwk.kid,
-//        type: 'publicKeyJwk',
-//        publicKeyJwk: options.jwt.rs256PrivateKeyJwk
-//    };
-//
-//    rsaPrivateKey = new jwt.RsaPrivateKey(privateKey);
-//  }
+  if (options.jwt.rs256PrivateKeyJwk !== undefined) {
+    var privateKey = {
+        id: options.jwt.rs256PrivateKeyJwk.kid,
+        type: 'publicKeyJwk',
+        publicKeyJwk: options.jwt.rs256PrivateKeyJwk
+    };
 
+    rsaPrivateKey = new jwt.PrivateKeyRsa(privateKey);
+  }
 }
 
 function getGeneratorOptions(additionalOptions = '') {
