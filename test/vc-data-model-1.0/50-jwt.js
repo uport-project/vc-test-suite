@@ -132,7 +132,7 @@ describe('JWT (optional)', () => {
         const jwtResult = cryptoFactory.constructJws(jwtBase64);
         expect(jwtResult.isContentWellFormedToken()).to.be.true;
 
-        expect(jwtResult.signature === null || jwtResult.signature === undefined || jwtResult.signature === "").to.be.true;
+        expect(jwtResult.signature === null || (typeof jwtResult.signature === 'undefined') || /\S/.test(jwtResult.signature) === false).to.be.true;
         const payload = JSON.parse(jwtResult.getPayload());
         expect(payload.proof !== null && payload.proof !== undefined).to.be.true;
       });
@@ -142,7 +142,7 @@ describe('JWT (optional)', () => {
         const jwtResult = cryptoFactory.constructJws(jwtBase64);
         expect(jwtResult.isContentWellFormedToken()).to.be.true;
 
-        expect(jwtResult.signature === null || jwtResult.signature === undefined || jwtResult.signature === "").to.be.true;
+        expect(jwtResult.signature === null || (typeof jwtResult.signature === 'undefined') || /\S/.test(jwtResult.signature) === false).to.be.true;
         const { alg } = jwtResult.getHeader('alg')
         expect(alg).to.be.a('string')
       });
@@ -163,7 +163,7 @@ describe('JWT (optional)', () => {
        expect(jwtResult.isContentWellFormedToken()).to.be.true;
 
        const payload = JSON.parse(jwtResult.getPayload());
-       expect(payload.exp === null || payload.exp === undefined).to.be.true;
+       expect(payload.exp === null || typeof payload.exp === 'undefined').to.be.true;
      });
 
      it('iss MUST represent the issuer property.', async () => {
@@ -202,7 +202,7 @@ describe('JWT (optional)', () => {
        expect(jwtResult.isContentWellFormedToken()).to.be.true;
 
        const payload = JSON.parse(jwtResult.getPayload());
-       expect(payload.jti === null || payload.jti === undefined).to.be.true;
+       expect(payload.jti === null || typeof payload.jti === 'undefined').to.be.true;
      });
 
      it('sub MUST represent the id property contained in the verifiable credential subject.', async () => {
